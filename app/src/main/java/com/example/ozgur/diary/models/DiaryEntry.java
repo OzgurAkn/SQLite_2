@@ -7,21 +7,21 @@ public class DiaryEntry
 {
     private String title;
     private String content;
-    private String recordedDate;
+    private long recordedDate;
 
-    public DiaryEntry(String title, String content, String recordedDate)
+    public DiaryEntry(String title, String content, long recordedDate)
     {
         this.title = title;
         this.content = content;
         this.recordedDate = recordedDate;
     }
 
-    public String getRecordedDate()
+    public long getRecordedDate()
     {
         return recordedDate;
     }
 
-    public void setRecordedDate(String recordedDate)
+    public void setRecordedDate(long recordedDate)
     {
         this.recordedDate = recordedDate;
     }

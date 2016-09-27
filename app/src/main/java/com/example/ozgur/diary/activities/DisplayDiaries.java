@@ -8,6 +8,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.ozgur.diary.R;
 import com.example.ozgur.diary.adapters.DiaryAdapter;
 import com.example.ozgur.diary.database.Constants;
 import com.example.ozgur.diary.database.Database;
+import com.example.ozgur.diary.database.DatabaseHelper;
 import com.example.ozgur.diary.database.DiaryContentProvider;
 import com.example.ozgur.diary.models.DiaryEntry;
 
@@ -82,7 +84,8 @@ public class DisplayDiaries extends ListActivity implements LoaderManager.Loader
         values.put(Constants.CONTENT_NAME, Constants.SAMPLE_CONTENT);
         values.put(Constants.DATE_NAME, System.currentTimeMillis());
 
-        for (int i = 0; i < 50; i++)
+        this.database.insertDiary()
+        for (int i = 0; i < 1000; i++)
         {
             ContentResolver contentResolver = getContentResolver();
             contentResolver.insert(DiaryContentProvider.CONTENT_URI, values);
@@ -90,7 +93,7 @@ public class DisplayDiaries extends ListActivity implements LoaderManager.Loader
 
         this.adapter.notifyDataSetChanged();
 
-        CharSequence text = "Added 50 entries";
+        CharSequence text = "Added 1000 entries";
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
 

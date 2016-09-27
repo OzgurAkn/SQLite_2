@@ -13,7 +13,7 @@ import com.example.ozgur.diary.database.Constants;
 import com.example.ozgur.diary.database.Database;
 import com.example.ozgur.diary.models.DiaryEntry;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,7 +22,6 @@ import java.util.Date;
  */
 public class DiaryAdapter extends BaseAdapter
 {
-
     private Database database;
     private LayoutInflater inflater;
     private ArrayList<DiaryEntry> entries;
@@ -43,13 +42,9 @@ public class DiaryAdapter extends BaseAdapter
                 String title = cursor.getString(cursor.getColumnIndex(Constants.TITLE_NAME));
                 String content = cursor.getString(cursor.getColumnIndex(Constants.CONTENT_NAME));
 
-                DateFormat dateFormat = DateFormat.getDateTimeInstance();
                 long rawDate = cursor.getLong(cursor.getColumnIndex(Constants.DATE_NAME));
 
-                Date date = new Date(rawDate);
-                String dateDate = dateFormat.format(date);
-
-                DiaryEntry entry = new DiaryEntry(title, content, dateDate);
+                DiaryEntry entry = new DiaryEntry(title, content, rawDate);
 
                 this.entries.add(entry);
             }
@@ -105,7 +100,10 @@ public class DiaryAdapter extends BaseAdapter
         //Set the required information
         holder.setEntry((DiaryEntry) getItem(position));
         holder.getTitle().setText(holder.getEntry().getTitle());
-        holder.getDate().setText(holder.getEntry().getRecordedDate());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+        Date resultdate = new Date(holder.getEntry().getRecordedDate());
+        holder.getDate().setText(sdf.format(resultdate));
 
         view.setTag(holder);
         return view;
